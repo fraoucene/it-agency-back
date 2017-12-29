@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.2-beta" last-position="0,2" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="nouvelle_base">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="it_agency" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="t_candidat">
+	<schema name="it_agency"/>
+	<role name="postgres"/>
+	<position x="267" y="393"/>
+	<column name="id_candidat" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="nom">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="prenom">
+		<type name="character varying" length="30"/>
+	</column>
+	<column name="poste">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="phone">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="email">
+		<type name="character varying" length="70"/>
+	</column>
+	<constraint name="c_client" type="pk-constr" table="it_agency.t_candidat">
+		<columns names="id_candidat" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<schema name="it_agency_cp" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="t_recrut">
+	<schema name="it_agency"/>
+	<role name="postgres"/>
+	<position x="678.5" y="378.2"/>
+	<column name="id_recrut" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="societe">
+		<type name="character varying" length="40"/>
+	</column>
+	<column name="nom">
+		<type name="character varying" length="60"/>
+	</column>
+	<column name="prenom">
+		<type name="character varying" length="30"/>
+	</column>
+	<column name="poste">
+		<type name="character varying" length="70"/>
+	</column>
+	<column name="phone">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="email">
+		<type name="character varying" length="70"/>
+	</column>
+	<constraint name="c_recrut" type="pk-constr" table="it_agency.t_recrut">
+		<columns names="id_recrut" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+</dbmodel>
