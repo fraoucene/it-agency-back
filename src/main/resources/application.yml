@@ -1,0 +1,63 @@
+# Spring Boot configuration
+spring:
+  bootRun :
+    addResources: true
+  profiles:
+    active: development
+# Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/db_it_agency?createDatabaseIfNotExist=true
+    username: postgres
+    #password: postgres
+# JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: false
+ # Emailing
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: infotechagency.contact@gmail.com
+    password: Anissa1988
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 10000
+          connectiontimeout: 20000
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: INFO
+    org.hibernate: DEBUG
+# Server configuration
+server:
+  port: 8880
+  sessionTimeout: 30
+# Security configuration
+security:
+  user:
+    name: fguezout
+    password: root
+mail:
+  from: fraoucene.guezout.externe@chronopost.fr
+  to: fraoucene.guezout.externe@chronopost.fr
+  candidature:
+    objet: Condidature
+  recrutement:
+    objet: Recrutement
+  information:
+    objet: Information
