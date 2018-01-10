@@ -39,6 +39,20 @@ CREATE TABLE it_agency.t_candidat(
 ALTER TABLE it_agency.t_candidat OWNER TO postgres;
 -- ddl-end --
 
+-- object: it_agency.t_candidat | type: TABLE --
+-- DROP TABLE IF EXISTS it_agency.t_user CASCADE;
+CREATE TABLE it_agency.t_user(
+	id_user serial NOT NULL,
+	password character varying(32) NOT NULL,
+	name character varying(255) DEFAULT NULL,
+	CONSTRAINT c_user PRIMARY KEY (id_user)
+
+);
+
+-- ddl-end --
+ALTER TABLE it_agency.t_user OWNER TO postgres;
+-- ddl-end --
+
 -- object: it_agency.t_recrut | type: TABLE --
 -- DROP TABLE IF EXISTS it_agency.t_recrut CASCADE;
 CREATE TABLE it_agency.t_recrut(
