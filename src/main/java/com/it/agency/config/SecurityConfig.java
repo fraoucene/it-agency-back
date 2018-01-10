@@ -1,20 +1,19 @@
 package com.it.agency.config;
 
-import com.it.agency.security.AjaxAuthenticationSuccessHandler;
+import com.it.agency.security.HeaderHandler;
 import com.it.agency.services.UserService;
 import com.it.agency.services.security.AppAuthProvider;
+import com.it.agency.services.security.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -32,10 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserService userDetailsService;
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
-
-    @Autowired
-    AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+    HeaderHandler headerHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,14 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new Http401AuthenticationEntryPoint("App header"))
-                .and()
                 .authenticationProvider(getProvider())
                 .formLogin()
                 .loginProcessingUrl("/login")
-                //.defaultSuccessUrl("/success")
-                .successHandler(ajaxAuthenticationSuccessHandler)
+                .successHandler(new AuthentificationLoginSuccessHandler())
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout()
@@ -74,7 +66,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         public void onAuthenticationSuccess(HttpServletRequest request,
                                             HttpServletResponse response, Authentication authentication)
                 throws IOException, ServletException {
+            Object principal = authentication.getPrincipal();
+            logger.debug("Authentication Successful");
+            response.getWriter().print("{ \"token\" : \"" + TokenGenerator.generateToken(principal.toString()) + "\"}");
+            headerHandler.process(request, response);
             response.setStatus(HttpServletResponse.SC_OK);
+        }
+    }
+
+    private class AuthentificationLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request,
+                                            HttpServletResponse response, AuthenticationException exception)
+                throws IOException, ServletException {
+            logger.debug("Authentication Faillure");
+            response.getWriter().print("{ \"token\" : \" no-token\"}");
+            headerHandler.process(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 

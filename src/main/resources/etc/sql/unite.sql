@@ -3,7 +3,7 @@
 -- SQL Script to add unite
 -- ---------------------------------------------------------------------------
 -- COMMANDS IN THIS SCRIPT SHOULD BE EXECUTED WITH SUPERUSER
--- psql -U postgres -d db_ifacture -a -f unite.sql
+-- psql -U postgres -d db_ifacture -a -f unite.sql psql -U postgres -h localhost -f src/main/resources/etc/sql/it_agency_data_base.sql
 -- ---------------------------------------------------------------------------
 
 INSERT INTO ifacture.t_unite VALUES ('cm','Centimetre');

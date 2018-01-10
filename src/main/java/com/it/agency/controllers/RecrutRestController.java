@@ -58,6 +58,7 @@ public class RecrutRestController {
         currentRecrut.setPoste(recrut.getPoste());
         currentRecrut.setPhone(recrut.getPhone());
         currentRecrut.setEmail(recrut.getEmail());
+        currentRecrut.setMessage(recrut.getMessage());
 
         return new ResponseEntity<>(repository.save(currentRecrut), HttpStatus.OK);
     }

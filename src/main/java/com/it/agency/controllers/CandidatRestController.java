@@ -11,7 +11,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/candidats")
-//@CrossOrigin(origins = {"*"}, exposedHeaders = "Access-Control-Expose-Headers: X-Total-Count", allowedHeaders = "Access-Control-Expose-Headers: X-Total-Count")
 public class CandidatRestController {
 
     private CandidatRepo repository;
@@ -58,6 +57,7 @@ public class CandidatRestController {
         currentCandidat.setPoste(candidat.getPoste());
         currentCandidat.setPhone(candidat.getPhone());
         currentCandidat.setEmail(candidat.getEmail());
+        currentCandidat.setMessage(candidat.getMessage());
 
         return new ResponseEntity<>(repository.save(currentCandidat), HttpStatus.OK);
     }

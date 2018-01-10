@@ -30,15 +30,19 @@ public class Candidat {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "message")
+    private String message = "";
+
     public Candidat() {
     }
 
-    public Candidat(String nom, String prenom, String poste, String phone, String email) {
+    public Candidat(String nom, String prenom, String poste, String phone, String email, String message) {
         this.nom = nom;
         this.prenom = prenom;
         this.poste = poste;
         this.phone = phone;
         this.email = email;
+        this.message = message;
     }
 
     public Long getId() {
@@ -89,6 +93,14 @@ public class Candidat {
         this.email = email;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "Candidat{" +
@@ -98,6 +110,7 @@ public class Candidat {
                 ", poste='" + poste + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

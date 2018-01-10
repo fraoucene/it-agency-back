@@ -5,27 +5,21 @@ import com.it.agency.outils.Other;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "t_recrut", schema = Other.DATEBASE_NAME)
-public class Recrut {
+@Table(name = "t_information", schema = Other.DATEBASE_NAME)
+public class Information {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id_recrut")
+    @Column(name = "id_information")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "societe")
-    private String societe;
 
     @Column(name = "nom")
     private String nom;
 
     @Column(name = "prenom")
     private String prenom;
-
-    @Column(name = "poste")
-    private String poste;
 
     @Column(name = "phone")
     private String phone;
@@ -36,25 +30,15 @@ public class Recrut {
     @Column(name = "message")
     private String message = "";
 
-    public Recrut() {
+    public Information() {
     }
 
-    public Recrut(String societe, String nom, String prenom, String poste, String phone, String email, String message) {
-        this.societe = societe;
+    public Information(String nom, String prenom, String phone, String email, String message) {
         this.nom = nom;
         this.prenom = prenom;
-        this.poste = poste;
         this.phone = phone;
         this.email = email;
         this.message = message;
-    }
-
-    public String getSociete() {
-        return societe;
-    }
-
-    public void setSociete(String societe) {
-        this.societe = societe;
     }
 
     public Long getId() {
@@ -79,14 +63,6 @@ public class Recrut {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public String getPoste() {
-        return poste;
-    }
-
-    public void setPoste(String poste) {
-        this.poste = poste;
     }
 
     public String getPhone() {
@@ -115,12 +91,10 @@ public class Recrut {
 
     @Override
     public String toString() {
-        return "Recrut{" +
+        return "Candidat{" +
                 "id=" + id +
-                ", societe='" + societe + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", poste='" + poste + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", message='" + message + '\'' +
